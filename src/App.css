@@ -1,0 +1,136 @@
+* {
+  max-width: 1280px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+  font-size: 62.5%;
+  font-family: 'Lato', sans-serif;
+}
+
+.app {
+  font-size: 1.6rem;
+  background: url(./assets/background.png) no-repeat center/cover;
+
+  display: grid;
+  place-content: center;
+
+  min-height: 100vh;
+}
+
+section {
+  background: #6D67D0;
+  backdrop-filter: blur(1rem);
+  border-radius: 1rem;  
+}
+
+.info-weather-now {
+  background: url(./assets/BGTemperatureNow.png) no-repeat center;
+
+  width: 48rem;
+  height: 48rem;
+
+  position: relative;
+
+  display: grid;
+  grid-template-rows: max-content 1fr max-content;
+}
+
+.info-weather-now::before {
+  content: "";
+  width: 17.6rem;
+  height: 17.6rem;
+
+  background: url(./assets/weather.png) no-repeat;
+
+  position: absolute;
+  top: -5.6rem;
+  left: -5.6rem;
+}
+
+.location {
+  justify-self: end;
+
+  padding: 3.2rem 3.2rem 0;
+
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+
+.location strong {
+  font-size: 1.4rem;
+  color: #C2BFF4;
+}
+
+.temperature {
+  margin: 6rem;
+
+  font-weight:700;
+
+  display: flex;
+  justify-content: center;
+  gap: .4rem;
+}
+
+.temperature .number {
+  text-align: center;
+  font-size: 8.8rem;
+  color: #FFFFFF;
+
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+
+.temperature .number .tempminmax {
+  font-size: 2rem;
+}
+
+.temperature .number .tempminmax span {
+  color: #c2bff4;
+}
+
+.scale {
+  font-size: 2.4rem;
+  color: #dad8f7;
+
+  margin-top: 1.5rem;
+}
+
+.statistics {
+  padding: 1.2rem;
+
+  display: flex;
+  gap: .8rem;
+}
+
+.statistics .stats {
+  flex: 1;
+
+  padding: 1.2rem 1.6rem;
+
+  background: rgba(102, 96, 200, 0.6);
+  border-radius: .6rem;
+
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.statistics .stats .stats-info {  
+  color: #E7E6FB;
+}
+
+.statistics .stats .stats-info h5 span,
+.statistics .stats .stats-info p {
+  font-size: 1.2rem;
+}
+
+.statistics .stats .stats-info h5 {
+  font-size: 1.8rem;
+}
