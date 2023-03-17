@@ -3,13 +3,14 @@ import Pin from './assets/pin.svg'
 import Rain from './assets/rain.svg'
 import Humidity from './assets/humidity.svg'
 import Wind from './assets/wind.svg'
+import Leaf from './assets/leaf.svg'
 
 
 function App() {
   return (
     <div className="app">
       <div className="container">
-        <section className="info-weather-now">
+        <section className="weather-now">
           <div className="location">
             <img src={Pin} alt="Location Pin icon" />
             <strong>Recife, PE</strong>
@@ -46,6 +47,42 @@ function App() {
               </div>
             </div>
            </div>
+        </section>
+        <section className="air-quality">
+          <div className="title">
+            <img src={Leaf} alt="Leaf icon" />
+            <h2>Air Quality</h2> 
+          </div>
+          <div className="air-quality-info">
+            <p className='good'>Good</p>
+            <p className='number'>21</p>
+          </div>
+          <div className="air-quality-stats">
+            <div className="stats">
+              <p>12.9</p>
+              <small>PM2.5</small>
+            </div>
+            <div className="stats">
+              <p>12.9</p>
+              <small>PM10</small>
+            </div>
+            <div className="stats">
+              <p>2.1</p>
+              <small>SO₂</small>
+            </div>
+            <div className="stats">
+              <p>1.4</p>
+              <small>NO₂</small>
+            </div>
+            <div className="stats">
+              <p>21.2</p>
+              <small>O₃</small>
+            </div>
+            <div className="stats">
+              <p>0.7</p>
+              <small>CO</small>
+            </div>
+          </div>
         </section>
       </div>
     </div>

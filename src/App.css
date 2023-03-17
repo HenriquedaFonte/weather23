@@ -12,14 +12,24 @@
   font-family: 'Lato', sans-serif;
 }
 
-.app {
+body {
   font-size: 1.6rem;
+}
+
+.app {  
   background: url(./assets/background.png) no-repeat center/cover;
 
   display: grid;
   place-content: center;
 
   min-height: 100vh;
+
+  padding: 6.4rem; 
+}
+
+.container {
+  display: grid;
+  gap: 2.4rem;
 }
 
 section {
@@ -28,11 +38,8 @@ section {
   border-radius: 1rem;  
 }
 
-.info-weather-now {
+.weather-now {
   background: url(./assets/BGTemperatureNow.png) no-repeat center;
-
-  width: 48rem;
-  height: 48rem;
 
   position: relative;
 
@@ -40,7 +47,7 @@ section {
   grid-template-rows: max-content 1fr max-content;
 }
 
-.info-weather-now::before {
+.weather-now::before {
   content: "";
   width: 17.6rem;
   height: 17.6rem;
@@ -133,4 +140,72 @@ section {
 
 .statistics .stats .stats-info h5 {
   font-size: 1.8rem;
+}
+
+.air-quality {
+  background: #6D67D0;
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+
+  position: relative;
+
+  display: grid;
+  grid-template-rows: max-content 1fr max-content;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  
+  margin-top: 3.2rem;
+  
+  gap: .8rem;
+
+  color: #DAD8F7;
+}
+
+.title h2{
+  font-size: 1.6rem;
+}
+
+
+.air-quality-info {
+  margin: 3.2rem;
+  
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+}
+
+.air-quality-info .good {
+  font-size: 1.8rem;
+  color: #87EBCD;
+}
+
+.air-quality-info .number {
+  margin-top: .4rem;
+
+  font-size: 4.0rem;
+  color: #E7E6FB;
+}
+
+.air-quality-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.6rem;
+  padding: 1.6rem;
+  margin-bottom: 1.6rem;
+}
+
+.air-quality-stats .stats p {
+  font-size: 1.4rem;
+  color: #87EBCD;
+}
+
+.air-quality-stats .stats small {
+  font-size: 1.2rem;
+  color: #E7E6FB;
 }
