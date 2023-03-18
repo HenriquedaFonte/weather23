@@ -8,6 +8,7 @@
 }
 
 :root {
+  margin: 0 auto;
   font-size: 62.5%;
   font-family: 'Lato', sans-serif;
 }
@@ -16,7 +17,7 @@ body {
   font-size: 1.6rem;
 }
 
-.app {  
+.app {
   background: url(./assets/background.png) no-repeat center/cover;
 
   display: grid;
@@ -24,19 +25,17 @@ body {
 
   min-height: 100vh;
 
-  padding: 6.4rem; 
-}
-
-.container {
-  display: grid;
+  padding: 6.4rem;
   gap: 2.4rem;
 }
 
 section {
-  background: #6D67D0;
+  background: #6d67d0;
   backdrop-filter: blur(1rem);
-  border-radius: 1rem;  
+  border-radius: 1rem;
 }
+
+/* Temperature Now */
 
 .weather-now {
   background: url(./assets/BGTemperatureNow.png) no-repeat center;
@@ -48,7 +47,7 @@ section {
 }
 
 .weather-now::before {
-  content: "";
+  content: '';
   width: 17.6rem;
   height: 17.6rem;
 
@@ -66,32 +65,32 @@ section {
 
   display: flex;
   align-items: center;
-  gap: .4rem;
+  gap: 0.4rem;
 }
 
 .location strong {
   font-size: 1.4rem;
-  color: #C2BFF4;
+  color: #c2bff4;
 }
 
 .temperature {
   margin: 6rem;
 
-  font-weight:700;
+  font-weight: 700;
 
   display: flex;
   justify-content: center;
-  gap: .4rem;
+  gap: 0.4rem;
 }
 
 .temperature .number {
   text-align: center;
   font-size: 8.8rem;
-  color: #FFFFFF;
+  color: #ffffff;
 
   display: flex;
   flex-direction: column;
-  gap: .4rem;
+  gap: 0.4rem;
 }
 
 .temperature .number .tempminmax {
@@ -113,7 +112,7 @@ section {
   padding: 1.2rem;
 
   display: flex;
-  gap: .8rem;
+  gap: 0.8rem;
 }
 
 .statistics .stats {
@@ -122,15 +121,15 @@ section {
   padding: 1.2rem 1.6rem;
 
   background: rgba(102, 96, 200, 0.6);
-  border-radius: .6rem;
+  border-radius: 0.6rem;
 
   display: flex;
   align-items: center;
   gap: 1.2rem;
 }
 
-.statistics .stats .stats-info {  
-  color: #E7E6FB;
+.statistics .stats .stats-info {
+  color: #e7e6fb;
 }
 
 .statistics .stats .stats-info h5 span,
@@ -142,8 +141,10 @@ section {
   font-size: 1.8rem;
 }
 
+/* Air quality */
+
 .air-quality {
-  background: #6D67D0;
+  background: #6d67d0;
   backdrop-filter: blur(10px);
   border-radius: 10px;
 
@@ -157,22 +158,21 @@ section {
   display: flex;
   align-items: center;
   justify-self: center;
-  
-  margin-top: 3.2rem;
-  
-  gap: .8rem;
 
-  color: #DAD8F7;
+  margin-top: 3.2rem;
+
+  gap: 0.8rem;
+
+  color: #dad8f7;
 }
 
-.title h2{
+.title h2 {
   font-size: 1.6rem;
 }
 
-
 .air-quality-info {
   margin: 3.2rem;
-  
+
   display: flex;
   flex-direction: column;
   justify-self: center;
@@ -181,14 +181,14 @@ section {
 
 .air-quality-info .good {
   font-size: 1.8rem;
-  color: #87EBCD;
+  color: #87ebcd;
 }
 
 .air-quality-info .number {
-  margin-top: .4rem;
+  margin-top: 0.4rem;
 
-  font-size: 4.0rem;
-  color: #E7E6FB;
+  font-size: 4rem;
+  color: #e7e6fb;
 }
 
 .air-quality-stats {
@@ -196,16 +196,142 @@ section {
   justify-content: space-between;
   align-items: center;
   gap: 1.6rem;
-  padding: 1.6rem;
-  margin-bottom: 1.6rem;
+  padding: .8rem 1.6rem;
 }
 
 .air-quality-stats .stats p {
   font-size: 1.4rem;
-  color: #87EBCD;
+  color: #87ebcd;
 }
 
 .air-quality-stats .stats small {
   font-size: 1.2rem;
-  color: #E7E6FB;
+  color: #e7e6fb;
 }
+
+/* Sun time */
+
+.sun-time {  
+  background: #6d67d0;
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+
+  display: grid;
+}
+
+.sun-chart-wrapper {
+  margin-top: 4rem;
+  height: 11rem;
+}
+
+.sun-chart {
+  --pos-x: 75;
+  margin: auto;
+  width: 21.6rem;
+  height: 21.6rem;
+  position: relative;
+}
+
+.sun-chart::before {
+  content: "";
+
+  width: 1.2rem;
+  height: 1.2rem;
+  position: absolute;
+
+  background: #f6c833;
+  border-radius: 50%;
+
+  top: 50%;
+  left: 50%;
+  margin: -0.6rem;
+
+  transform: rotate(calc(1deg * (((100 - var(--pos-x)) / -100) * 180))) translate(10.6rem);
+}
+
+.chart {
+  width: 21.6rem;
+  height: 10.8rem;
+
+  overflow: hidden;
+}
+
+.chart::before {
+  content: "";
+  width: 21.6rem;
+  height: 21.6rem;
+
+  display: block;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    180deg, 
+    rgba(251, 219, 96, 0.2) 0%, 
+    rgba(251, 219, 96, 0) 101.89%
+  );
+
+  --mask: linear-gradient(0deg, white 50%, transparent 0%);
+  mask: var(--mask);  
+  -webkit-mask: var(--mask);
+
+  rotate: calc(1.8deg * var(--pos-x));
+}
+
+.chart img {
+  position: absolute;
+  top: 0;
+  left: 1%;
+
+}
+
+time.now {
+  position: absolute;
+
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%);
+
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.time {
+  font-size: 1.2rem;
+  color: white;
+  
+  display:flex;
+  justify-content: space-between;
+
+  margin: .8rem auto 0; 
+  padding:0 1.6rem 1.6rem;
+  width: 100%; 
+  max-width: 27.6rem;
+}
+
+/* Week Weather */
+
+.week-weather {
+  padding: 4rem;
+
+  display: flex;
+  gap: 1.2rem;
+}
+
+@media (min-width: 1200px) {
+  .app {
+    grid-template-columns: 48rem 27.7rem 27.7rem;
+    grid-template-rows: 24.4rem 21.2rem;
+  }
+
+  .weather-now {
+    grid-row: 1/3;
+  }
+  
+  .week-weather {
+    grid-column: 2/4;
+  }
+}
+
+

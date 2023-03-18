@@ -1,0 +1,22 @@
+.day {
+  flex: 1;
+
+  display: grid;
+  justify-items: center;
+  gap: 1.6rem;
+}
+
+h4.title {
+  margin-top: 0;
+}
+
+
+.day .tempminmax {
+  font-weight: 700;
+  color: white;
+  font-size: 1.6rem;
+}
+
+.day .tempminmax span {
+  color: #c2bff4;
+}
