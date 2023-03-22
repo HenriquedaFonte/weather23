@@ -22,7 +22,7 @@ function App() {
   const [location, setLocation] = useState('Recife')
   const [showInput, setShowInput] = useState(false);
 
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=bf71fe4e34456d42012ad42c1757b5f3`
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${idtoken}`
 
   const searchLocation = (event) => {
     if (event.key === 'Enter') {
@@ -58,7 +58,7 @@ function App() {
           </div>
           <div className="temperature">
             <div className="number">
-              {data.main ? data.main.temp +'°C' : null}
+              {data.main ? data.main.temp.toFixed() : null}
               <div className="tempminmax">
                 25° <span>15°</span>
               </div>
@@ -66,6 +66,15 @@ function App() {
             <div className="scale">°C</div>
           </div>
           <div className="statistics">
+            <div className="stats">
+              <img src={Wind} alt="Wind icon" />
+              <div className="stats-info">
+                <p>Feels Like</p>
+                <h5>
+                  17 <span>km/h</span>
+                </h5>
+              </div>
+            </div>
             <div className="stats">
               <img src={Wind} alt="Wind icon" />
               <div className="stats-info">

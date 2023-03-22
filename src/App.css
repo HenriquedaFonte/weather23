@@ -78,10 +78,10 @@ section {
   border-radius: 4rem;
   padding-left: 1rem;
   width: 13rem;
-  
-  color: #681E8F;
+
+  color: #681e8f;
   font-weight: 700;
-  
+
   background-color: #c2bff4;
 }
 
@@ -124,7 +124,7 @@ section {
   padding: 1.2rem;
 
   display: flex;
-  gap: 0.8rem;
+  gap: 0.5rem;
 }
 
 .statistics .stats {
@@ -137,7 +137,9 @@ section {
 
   display: flex;
   align-items: center;
-  gap: 1.2rem;
+  gap: 0.5rem;
+
+  white-space: nowrap;
 }
 
 .statistics .stats .stats-info {
