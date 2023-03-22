@@ -24,6 +24,7 @@ body {
   place-content: center;
 
   min-height: 100vh;
+  min-width: 44rem;
 
   padding: 6.4rem;
   gap: 2.4rem;
@@ -71,6 +72,17 @@ section {
 .location strong {
   font-size: 1.4rem;
   color: #c2bff4;
+}
+
+.searchLocation {
+  border-radius: 4rem;
+  padding-left: 1rem;
+  width: 13rem;
+  
+  color: #681E8F;
+  font-weight: 700;
+  
+  background-color: #c2bff4;
 }
 
 .temperature {
@@ -196,7 +208,7 @@ section {
   justify-content: space-between;
   align-items: center;
   gap: 1.6rem;
-  padding: .8rem 1.6rem;
+  padding: 0.8rem 1.6rem;
 }
 
 .air-quality-stats .stats p {
@@ -211,7 +223,7 @@ section {
 
 /* Sun time */
 
-.sun-time {  
+.sun-time {
   background: #6d67d0;
   backdrop-filter: blur(10px);
   border-radius: 10px;
@@ -233,7 +245,7 @@ section {
 }
 
 .sun-chart::before {
-  content: "";
+  content: '';
 
   width: 1.2rem;
   height: 1.2rem;
@@ -246,7 +258,8 @@ section {
   left: 50%;
   margin: -0.6rem;
 
-  transform: rotate(calc(1deg * (((100 - var(--pos-x)) / -100) * 180))) translate(10.6rem);
+  transform: rotate(calc(1deg * (((100 - var(--pos-x)) / -100) * 180)))
+    translate(10.6rem);
 }
 
 .chart {
@@ -257,7 +270,7 @@ section {
 }
 
 .chart::before {
-  content: "";
+  content: '';
   width: 21.6rem;
   height: 21.6rem;
 
@@ -266,13 +279,13 @@ section {
   border-radius: 50%;
 
   background: linear-gradient(
-    180deg, 
-    rgba(251, 219, 96, 0.2) 0%, 
+    180deg,
+    rgba(251, 219, 96, 0.2) 0%,
     rgba(251, 219, 96, 0) 101.89%
   );
 
   --mask: linear-gradient(0deg, white 50%, transparent 0%);
-  mask: var(--mask);  
+  mask: var(--mask);
   -webkit-mask: var(--mask);
 
   rotate: calc(1.8deg * var(--pos-x));
@@ -282,7 +295,6 @@ section {
   position: absolute;
   top: 0;
   left: 1%;
-
 }
 
 time.now {
@@ -300,13 +312,13 @@ time.now {
 .time {
   font-size: 1.2rem;
   color: white;
-  
-  display:flex;
+
+  display: flex;
   justify-content: space-between;
 
-  margin: .8rem auto 0; 
-  padding:0 1.6rem 1.6rem;
-  width: 100%; 
+  margin: 0.8rem auto 0;
+  padding: 0 1.6rem 1.6rem;
+  width: 100%;
   max-width: 27.6rem;
 }
 
@@ -328,10 +340,22 @@ time.now {
   .weather-now {
     grid-row: 1/3;
   }
-  
+
   .week-weather {
     grid-column: 2/4;
+    animation: animate-weather 1s ease-in-out;
+  }
+
+  .sun-time,
+  .air-quality {
+    animation: animate-weather 1s ease-in-out;
   }
 }
-
-
+@keyframes animate-weather {
+  0% {
+    transform: translate(-100%, 100%);
+  }
+  100% {
+    transform: translate(0%, 0%);
+  }
+}
