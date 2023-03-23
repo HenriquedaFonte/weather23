@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-
 import './App.css'
+
 import Pin from './assets/pin.svg'
 import Rain from './assets/rain.svg'
 import Humidity from './assets/humidity.svg'
@@ -14,7 +14,6 @@ import Cloud from './assets/cloud.svg'
 import RainBig from './assets/rainBig.svg'
 import Thunder from './assets/thunder.svg'
 import PartlyCloudy from './assets/partlyCloudy.svg'
-
 import Day from "./components/Day/Day";
 
 function App() {
@@ -22,7 +21,9 @@ function App() {
   const [location, setLocation] = useState('Recife')
   const [showInput, setShowInput] = useState(false);
 
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${idtoken}`
+  const idToken = import.meta.env.VITE_API_TOKEN; 
+  
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${idToken}`
 
   const searchLocation = (event) => {
     if (event.key === 'Enter') {
@@ -34,7 +35,10 @@ function App() {
     }
   }
 
-  console.log(location);
+  const iconCode = data.weather ? data.weather[0].icon : null;
+  const iconUrl = `http://openweathermap.org/img/w/${iconCode}.png`;
+
+  console.log(iconUrl);
   console.log(data.name);
 
   return (
@@ -60,7 +64,7 @@ function App() {
             <div className="number">
               {data.main ? data.main.temp.toFixed() : null}
               <div className="tempminmax">
-                25° <span>15°</span>
+              {data.main ? data.main.temp_max.toFixed() : null}° <span>{data.main ? data.main.temp_min.toFixed() : null}° </span>
               </div>
             </div>
             <div className="scale">°C</div>
@@ -71,7 +75,7 @@ function App() {
               <div className="stats-info">
                 <p>Feels Like</p>
                 <h5>
-                  17 <span>km/h</span>
+                {data.main ? data.main.feels_like.toFixed() : null} <span>°C</span>
                 </h5>
               </div>
             </div>
@@ -80,7 +84,7 @@ function App() {
               <div className="stats-info">
                 <p>Wind</p>
                 <h5>
-                  17 <span>km/h</span>
+                {data.wind ? data.wind.speed.toFixed() : null} <span>km/h</span>
                 </h5>
               </div>
             </div>
@@ -89,14 +93,14 @@ function App() {
               <div className="stats-info">
                 <p>Humidity</p>
                 <h5>
-                  31 <span>%</span>
+                {data.main ? data.main.humidity : null} <span>%</span>
                 </h5>
               </div>
             </div>
             <div className="stats">
-              <img src={Rain} alt="Rain icon" />
+              <img src={iconUrl} alt="Rain icon" />
               <div className="stats-info">
-                <p>Rain</p>
+                <p>{data.weather ? data.weather[0].main : null}</p>
                 <h5>
                   10 <span>%</span>
                 </h5>
