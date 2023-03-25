@@ -39,7 +39,7 @@ section {
 /* Temperature Now */
 
 .weather-now {
-  background: url(./assets/BGTemperatureNow.png) no-repeat center;
+  background: url(./assets/BGTemperatureNow.png) no-repeat center/cover;
 
   position: relative;
 
@@ -47,16 +47,14 @@ section {
   grid-template-rows: max-content 1fr max-content;
 }
 
-.weather-now::before {
+.imgWeatherNow {
   content: '';
   width: 17.6rem;
   height: 17.6rem;
 
-  background: url(./assets/weather.png) no-repeat;
-
   position: absolute;
-  top: -5.6rem;
-  left: -5.6rem;
+  top: -6.6rem;
+  left: -6.6rem;
 }
 
 .location {
@@ -91,8 +89,7 @@ section {
   font-weight: 700;
 
   display: flex;
-  justify-content: center;
-  gap: 0.4rem;
+  justify-content: center;  
 }
 
 .temperature .number {
@@ -102,15 +99,17 @@ section {
 
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: .4rem;
 }
 
-.temperature .number .tempminmax {
+.temperature .number .tempMinMax {
   font-size: 2rem;
 }
 
-.temperature .number .tempminmax span {
+
+.temperature .number .tempMinMax span {
   color: #c2bff4;
+  margin-left: 1rem;
 }
 
 .scale {
