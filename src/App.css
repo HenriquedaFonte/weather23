@@ -89,7 +89,7 @@ section {
   font-weight: 700;
 
   display: flex;
-  justify-content: center;  
+  justify-content: center;
 }
 
 .temperature .number {
@@ -99,13 +99,12 @@ section {
 
   display: flex;
   flex-direction: column;
-  gap: .4rem;
+  gap: 0.4rem;
 }
 
 .temperature .number .tempMinMax {
   font-size: 2rem;
 }
-
 
 .temperature .number .tempMinMax span {
   color: #c2bff4;
@@ -238,7 +237,7 @@ section {
 }
 
 .sun-chart {
-  --pos-x: 75;
+  --pos-x: 50;
   margin: auto;
   width: 21.6rem;
   height: 21.6rem;
