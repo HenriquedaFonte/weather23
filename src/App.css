@@ -191,8 +191,8 @@ section {
   align-items: center;
 }
 
-.air-quality-info .good {
-  font-size: 1.8rem;
+.air-quality-info-text{
+  font-size: 2rem;
   color: #87ebcd;
 }
 
@@ -207,7 +207,7 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1.6rem;
+  gap: 0.8rem;
   padding: 0.8rem 1.6rem;
 }
 

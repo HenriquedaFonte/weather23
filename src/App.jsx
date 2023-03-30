@@ -13,17 +13,17 @@ import Chart from './assets/chart.svg'
 import Sun from './assets/sun.svg'
 import Cloud from './assets/cloud.svg'
 import RainBig from './assets/rainBig.svg'
-import Snow from './assets/snow.png'
 import Thunder from './assets/thunder.svg'
 import PartlyCloudy from './assets/partlyCloudy.svg'
 
 function App() {
   const [data, setData] = useState({})
-  const [airQualityData, setAirQualityData] = useState({})
+  const [dataSuntime, setDataSuntime] = useState({})
+  const [cityName, setCityName] = useState(null)
   const [location, setLocation] = useState('')
   const [showInput, setShowInput] = useState(false)
   const [time, setTime] = useState(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-  const { VITE_API_TOKEN: idToken, VITE_AIR_QUALITY_TOKEN: idTokenAirQuality } =
+  const { VITE_API_TOKEN: idToken, VITE_AIR_QUALITY_TOKEN: idTokenAirQuality, VITE_API_WEATER_TOKEN: apiIdToken } =
     import.meta.env
 
   useEffect(() => {
@@ -41,13 +41,36 @@ function App() {
   }, [])
 
   useEffect(() => {
-    if (location) {
-      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&units=metric&appid=${idToken}`
+    if (location !== ''){
+      getAddressFromLatLong(location.latitude, location.longitude);
+    }    
+  },[location])
+  
+  function getAddressFromLatLong(lat, long) {
+    fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${long}`)
+      .then(response => response.json())
+      .then(data => setCityName(data.address.city));
+  }
+
+  useEffect(() => {
+      const url = `http://api.weatherapi.com/v1/current.json?key=${apiIdToken}&q=${cityName}&aqi=yes`
       axios
         .get(url)
         .then(response => {
           setData(response.data)
-          setLocationName(response.data.name)
+        })
+        .catch(error => {
+          console.error('Error fetching weather data:', error)
+        })
+  }, [cityName, apiIdToken])
+
+  useEffect(() => {
+    if (location !== ''){
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&units=metric&appid=${idToken}`
+      axios
+        .get(url)
+        .then(response => {
+          setDataSuntime(response.data)
         })
         .catch(error => {
           console.error('Error fetching weather data:', error)
@@ -55,60 +78,31 @@ function App() {
     }
   }, [location, idToken])
 
-  useEffect(() => {
-    if (location) {
-      const lati = parseInt(location.latitude)
-      const long = parseInt(location.longitude)
-      axios
-        .get(`https://api.waqi.info/feed/geo:${lati};${long}/?token=${idTokenAirQuality}`)
-        .then(response => {
-          setAirQualityData(response.data)
-        })
-        .catch(error => {
-          console.error('Error fetching air quality data:', error)
-        })
-    }
-  }, [location, idTokenAirQuality])
-
-
   const searchLocation = city => {
     setShowInput(false)
     axios
-      .get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${idToken}`)
+      .get(`http://api.weatherapi.com/v1/current.json?key=${apiIdToken}&q=${city}&aqi=yes`)
       .then(response => {
-      setData(response.data)
-    })
-    axios
-      .get(`https://api.waqi.info/feed/${city}/?token=${idTokenAirQuality}`)
-      .then(response => {
-        setAirQualityData(response.data)
+        setData(response.data)
+        setLocation({
+          latitude: response.data.location.lat,
+          longitude: response.data.location.lon
+        })
       })
-      .catch(error => {
-        console.error('Error fetching air quality data:', error)
-      })
-  }
-
-  function mainImg() {
-    switch (data?.weather?.[0]?.main) {
-      case 'Rain':
-        return RainBig
-      case 'Clouds':
-        return Cloud
-      case 'Clear':
-        return Sun
-      case 'Snow':
-        return Snow
-      default:
-        return null
-    }
   }
 
   const airQualityDescriptions = {
     1: 'Good',
     2: 'Moderate',
     3: 'Unhealthy for Sensitive Groups',
-    4: 'Unhealthy'
-  }
+    4: 'Unhealthy',
+    5: 'Very Unhealthy',
+    6: 'Hazardous'
+  } 
+
+  const airCondition = data?.current?.air_quality['us-epa-index'];
+
+  const weatherIcon = data?.current?.condition?.icon
 
   function unixTimestamp(hour){
     const date = new Date(hour * 1000)
@@ -131,26 +125,22 @@ function App() {
     return percentageTimeElapsed.toFixed(0);    
   }
 
-  console.log(sunPosition(data?.sys?.sunrise, data?.sys?.sunset));
-
   useEffect(() => {
     const interval = setInterval(() => {
       setTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
       const element = document.querySelector(".sun-chart");
-      element.style.setProperty("--pos-x", sunPosition(data?.sys.sunrise, data?.sys.sunset));
+      element.style.setProperty("--pos-x", sunPosition(dataSuntime?.sys.sunrise, dataSuntime?.sys.sunset));
     }, 5000);
     return () => clearInterval(interval);
-  }, [data]);
+  }, [dataSuntime]);
 
-
-  console.log(airQualityData)
-  console.log(location);
   console.log(data);
+  console.log(dataSuntime);
 
   return (
     <div className="app">
       <section className="weather-now">
-        <img className="imgWeatherNow" src={mainImg()} alt="" />
+        <img className="imgWeatherNow" src={weatherIcon} alt="" />
         <div className="location">
           <img src={Pin} alt="Location Pin icon" />
           <div>
@@ -162,17 +152,17 @@ function App() {
               />
             ) : (
               <strong onClick={() => setShowInput(true)}>
-                {data ? data?.name : 'Insert your location'}
+                {cityName ? cityName : 'Insert your location'}
               </strong>
             )}
           </div>
         </div>
         <div className="temperature">
           <div className="number">
-            {data.main ? data.main.temp.toFixed() : null}
+            {data.current ? data.current.temp_c.toFixed() : null}
             <div className="tempMinMax">
-              {data.main ? data.main.temp_max.toFixed() : null}°{' '}
-              <span>{data.main ? data.main.temp_min.toFixed() : null}° </span>
+              {dataSuntime.main ? dataSuntime.main.temp_max.toFixed() : null}°{' '}
+              <span>{dataSuntime.main ? dataSuntime.main.temp_min.toFixed() : null}° </span>
             </div>
           </div>
           <div className="scale">°C</div>
@@ -183,7 +173,7 @@ function App() {
             <div className="stats-info">
               <p>Feels Like</p>
               <h5>
-                {data?.main?.feels_like.toFixed()} <span>°C</span>
+                {data.current ? data.current.feelslike_c.toFixed() : null} <span>°C</span>
               </h5>
             </div>
           </div>
@@ -192,7 +182,7 @@ function App() {
             <div className="stats-info">
               <p>Wind</p>
               <h5>
-                {data?.wind?.speed.toFixed()} <span>km/h</span>
+                {data.current ? data.current.wind_kph.toFixed() : null} <span>km/h</span>
               </h5>
             </div>
           </div>
@@ -201,7 +191,16 @@ function App() {
             <div className="stats-info">
               <p>Humidity</p>
               <h5>
-                {data?.main?.humidity} <span>%</span>
+                {data.current ? data.current.humidity.toFixed() : null} <span>%</span>
+              </h5>
+            </div>
+          </div>
+          <div className="stats">
+            <img src={Rain} alt="Humidity icon" />
+            <div className="stats-info">
+              <p>Rain</p>
+              <h5>
+                {data.current ? data.current.precip_in.toFixed() : null} <span>%</span>
               </h5>
             </div>
           </div>
@@ -213,36 +212,35 @@ function App() {
           <h2>Air Quality</h2>
         </div>
         <div className="air-quality-info">
-          <p className="good">
-            {airQualityData.data
-              ? airQualityDescriptions[Math.ceil(airQualityData.data.aqi / 50)]
+          <p className="air-quality-info-text">
+            {data?.current?.air_quality
+              ? airQualityDescriptions[airCondition]
               : null}
           </p>
-          <p className="number">{airQualityData?.data?.aqi}</p>
         </div>
         <div className="air-quality-stats">
           <div className="stats">
-            <p>{airQualityData?.data?.iaqi?.pm25?.v}</p>
+            <p>{data.current ? data.current.air_quality.pm2_5.toFixed(1) : null}</p>
             <small>PM2.5</small>
           </div>
           <div className="stats">
-            <p>{airQualityData?.data?.iaqi?.pm10?.v}</p>
+            <p>{data.current ? data.current.air_quality.pm10.toFixed(1) : null}</p>
             <small>PM10</small>
           </div>
           <div className="stats">
-            <p>{airQualityData?.data?.iaqi?.so2?.v}</p>
+            <p>{data.current ? data.current.air_quality.so2.toFixed(1) : null}</p>
             <small>SO₂</small>
           </div>
           <div className="stats">
-            <p>{airQualityData?.data?.iaqi?.t?.v}</p>
+            <p>{data.current ? data.current.air_quality.no2.toFixed(1) : null}</p>
             <small>NO₂</small>
           </div>
           <div className="stats">
-            <p>{airQualityData?.data?.iaqi?.o3?.v}</p>
+            <p>{data.current ? data.current.air_quality.o3.toFixed(1) : null}</p>
             <small>O₃</small>
           </div>
           <div className="stats">
-            <p>{airQualityData?.data?.iaqi?.w?.v}</p>
+            <p>{data.current ? data.current.air_quality.co.toFixed(1) : null}</p>
             <small>CO</small>
           </div>
         </div>
@@ -264,8 +262,8 @@ function App() {
           </div>
         </div>
         <div className="time">
-          <time className="sunrise">{unixTimestamp(data?.sys?.sunrise)}</time>
-          <time className="sunset">{unixTimestamp(data?.sys?.sunset)}</time>
+          <time className="sunrise">{unixTimestamp(dataSuntime?.sys?.sunrise)}</time>
+          <time className="sunset">{unixTimestamp(dataSuntime?.sys?.sunset)}</time>
         </div>
       </section>
       <section className="week-weather">
