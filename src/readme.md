@@ -1,5 +1,3 @@
-Here's a translation of your message:
-
 🚀 Technologies
 This project was developed with the following technologies:
 
@@ -7,25 +5,26 @@ HTML
 CSS
 JavaScript
 React
+Axios
 Git and Github
 Figma
 
 💻 Project
-The Weather Dashboard project was carried out as part of RocketSeat's #10 challenge #BORACODAR suggested by Professor Mayk Brito.
 
-Functionalities
-The initial challenge was to create a page layout with weather information like the model shown in Layout, after making the model, we decided to integrate it with an API to get the data dynamically.
+Weather App
+This project is a simple weather application that displays weather forecasts for the next two days. It uses the OpenWeatherMap and WeatherAPI APIs to get weather data and the Geolocation API to get the user's location.
 
-API used
-We used a website with APIs called weatherapi.com, it is free and does not require an API_token, besides this facilitation, it has a URL builder, where you select the desired parameters in the interface and it shows you the URL that should be used.
+Figma Project
+Layout created by [Rocketseat](https://rocketseat.com.br/) for the #boracodar project. You can find the project at the following link:
 
-To show meteorological data we used the Weather Forecast API and for air quality data we used the Air Quality API. In addition, it is worth noting that the European air quality classification metric was used.
+https://www.figma.com/file/BNf2zfWC5plcCSeAbfpq3U/%23boraCodar---Desafio-10-(Community)?node-id=328-2&t=n2pjm0Ur2I3GB8si-0
 
-In the project used, we used São Paulo city as a reference, and consequently its meteorological data. To use other cities, it is necessary to modify the latitude and longitude coordinates.
+Features
+Displays current weather conditions and weather forecasts for the next two days.
+Displays the location name based on the user's geolocation or a search query.
+Updates the position of the sun chart based on the current time.
 
-Visit the online project
-
-🔖 Layout
-You can view RocketSeat's proposed layout through the image below. Provided by Figma during the challenge period.
-
-weather figma
+Usage
+The app displays the current weather conditions and weather forecasts for the next two days for the user's location.
+To search for a different location, click on the search icon and enter the city name in the search bar.
+The sun chart on the top of the app shows the current position of the sun based on the time of the day.

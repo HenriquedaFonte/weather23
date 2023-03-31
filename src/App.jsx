@@ -10,20 +10,16 @@ import Wind from './assets/wind.svg'
 import Leaf from './assets/leaf.svg'
 import SunTime from './assets/time.svg'
 import Chart from './assets/chart.svg'
-import Sun from './assets/sun.svg'
-import Cloud from './assets/cloud.svg'
-import RainBig from './assets/rainBig.svg'
-import Thunder from './assets/thunder.svg'
-import PartlyCloudy from './assets/partlyCloudy.svg'
+import FeelsLike from './assets/feelslike.svg'
 
 function App() {
-  const [data, setData] = useState({})
+  const [forecastData, setForecastData] = useState({})
   const [dataSuntime, setDataSuntime] = useState({})
   const [cityName, setCityName] = useState(null)
   const [location, setLocation] = useState('')
   const [showInput, setShowInput] = useState(false)
   const [time, setTime] = useState(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-  const { VITE_API_TOKEN: idToken, VITE_AIR_QUALITY_TOKEN: idTokenAirQuality, VITE_API_WEATER_TOKEN: apiIdToken } =
+  const { VITE_API_OPEN_WEATHR_MAP_TOKEN: idOpenWeatherMapToken, VITE_API_WEATER_TOKEN: apiWeatherToken } =
     import.meta.env
 
   useEffect(() => {
@@ -53,22 +49,21 @@ function App() {
   }
 
   useEffect(() => {
-      const url = `http://api.weatherapi.com/v1/current.json?key=${apiIdToken}&q=${cityName}&aqi=yes`
-      axios
-        .get(url)
+      axios  
+        .get(`http://api.weatherapi.com/v1/forecast.json?key=${apiWeatherToken}&q=${cityName}&days=5&aqi=yes&alerts=no`)
         .then(response => {
-          setData(response.data)
+          setForecastData(response.data)
         })
         .catch(error => {
           console.error('Error fetching weather data:', error)
         })
-  }, [cityName, apiIdToken])
+
+  }, [cityName, apiWeatherToken])
 
   useEffect(() => {
     if (location !== ''){
-      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&units=metric&appid=${idToken}`
       axios
-        .get(url)
+        .get(`https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&units=metric&appid=${idOpenWeatherMapToken}`)
         .then(response => {
           setDataSuntime(response.data)
         })
@@ -76,14 +71,14 @@ function App() {
           console.error('Error fetching weather data:', error)
         })
     }
-  }, [location, idToken])
+  }, [location, idOpenWeatherMapToken])
 
   const searchLocation = city => {
     setShowInput(false)
     axios
-      .get(`http://api.weatherapi.com/v1/current.json?key=${apiIdToken}&q=${city}&aqi=yes`)
+      .get(`http://api.weatherapi.com/v1/forecast.json?key=${apiWeatherToken}&q=${city}&days=5&aqi=yes&alerts=no`)
       .then(response => {
-        setData(response.data)
+        setForecastData(response.data)
         setLocation({
           latitude: response.data.location.lat,
           longitude: response.data.location.lon
@@ -100,9 +95,9 @@ function App() {
     6: 'Hazardous'
   } 
 
-  const airCondition = data?.current?.air_quality['us-epa-index'];
+  const airCondition = forecastData?.current?.air_quality['us-epa-index'];
 
-  const weatherIcon = data?.current?.condition?.icon
+  const weatherIcon = forecastData?.current?.condition?.icon;
 
   function unixTimestamp(hour){
     const date = new Date(hour * 1000)
@@ -134,8 +129,12 @@ function App() {
     return () => clearInterval(interval);
   }, [dataSuntime]);
 
-  console.log(data);
-  console.log(dataSuntime);
+  function getWeekDay(epochDate) {
+    const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday'];
+    const date = new Date(epochDate * 1000);
+    const weekDay = weekDays[date.getDay()];
+    return weekDay;
+  }
 
   return (
     <div className="app">
@@ -159,7 +158,7 @@ function App() {
         </div>
         <div className="temperature">
           <div className="number">
-            {data.current ? data.current.temp_c.toFixed() : null}
+            {forecastData.current ? forecastData.current.temp_c.toFixed() : null}
             <div className="tempMinMax">
               {dataSuntime.main ? dataSuntime.main.temp_max.toFixed() : null}°{' '}
               <span>{dataSuntime.main ? dataSuntime.main.temp_min.toFixed() : null}° </span>
@@ -169,11 +168,11 @@ function App() {
         </div>
         <div className="statistics">
           <div className="stats">
-            <img src={Wind} alt="Wind icon" />
+            <img src={FeelsLike} alt="Wind icon" />
             <div className="stats-info">
               <p>Feels Like</p>
               <h5>
-                {data.current ? data.current.feelslike_c.toFixed() : null} <span>°C</span>
+                {forecastData.current ? forecastData.current.feelslike_c.toFixed() : null} <span>°C</span>
               </h5>
             </div>
           </div>
@@ -182,7 +181,7 @@ function App() {
             <div className="stats-info">
               <p>Wind</p>
               <h5>
-                {data.current ? data.current.wind_kph.toFixed() : null} <span>km/h</span>
+                {forecastData.current ? forecastData.current.wind_kph.toFixed() : null} <span>km/h</span>
               </h5>
             </div>
           </div>
@@ -191,7 +190,7 @@ function App() {
             <div className="stats-info">
               <p>Humidity</p>
               <h5>
-                {data.current ? data.current.humidity.toFixed() : null} <span>%</span>
+                {forecastData.current ? forecastData.current.humidity.toFixed() : null} <span>%</span>
               </h5>
             </div>
           </div>
@@ -200,7 +199,7 @@ function App() {
             <div className="stats-info">
               <p>Rain</p>
               <h5>
-                {data.current ? data.current.precip_in.toFixed() : null} <span>%</span>
+                {forecastData.current ? forecastData.current.precip_in.toFixed() : null} <span>%</span>
               </h5>
             </div>
           </div>
@@ -213,34 +212,34 @@ function App() {
         </div>
         <div className="air-quality-info">
           <p className="air-quality-info-text">
-            {data?.current?.air_quality
+            {forecastData?.current?.air_quality
               ? airQualityDescriptions[airCondition]
               : null}
           </p>
         </div>
         <div className="air-quality-stats">
           <div className="stats">
-            <p>{data.current ? data.current.air_quality.pm2_5.toFixed(1) : null}</p>
+            <p>{forecastData.current ? forecastData.current.air_quality.pm2_5.toFixed(1) : null}</p>
             <small>PM2.5</small>
           </div>
           <div className="stats">
-            <p>{data.current ? data.current.air_quality.pm10.toFixed(1) : null}</p>
+            <p>{forecastData.current ? forecastData.current.air_quality.pm10.toFixed(1) : null}</p>
             <small>PM10</small>
           </div>
           <div className="stats">
-            <p>{data.current ? data.current.air_quality.so2.toFixed(1) : null}</p>
+            <p>{forecastData.current ? forecastData.current.air_quality.so2.toFixed(1) : null}</p>
             <small>SO₂</small>
           </div>
           <div className="stats">
-            <p>{data.current ? data.current.air_quality.no2.toFixed(1) : null}</p>
+            <p>{forecastData.current ? forecastData.current.air_quality.no2.toFixed(1) : null}</p>
             <small>NO₂</small>
           </div>
           <div className="stats">
-            <p>{data.current ? data.current.air_quality.o3.toFixed(1) : null}</p>
+            <p>{forecastData.current ? forecastData.current.air_quality.o3.toFixed(1) : null}</p>
             <small>O₃</small>
           </div>
           <div className="stats">
-            <p>{data.current ? data.current.air_quality.co.toFixed(1) : null}</p>
+            <p>{forecastData.current ? forecastData.current.air_quality.co.toFixed(1) : null}</p>
             <small>CO</small>
           </div>
         </div>
@@ -267,11 +266,8 @@ function App() {
         </div>
       </section>
       <section className="week-weather">
-        <Day title={'Tomorrow'} icon={Cloud} maxTemp={20} minTemp={16} />
-        <Day title={'Friday'} icon={Sun} maxTemp={29} minTemp={23} />
-        <Day title={'Saturday'} icon={RainBig} maxTemp={19} minTemp={11} />
-        <Day title={'Sunday'} icon={Thunder} maxTemp={21} minTemp={16} />
-        <Day title={'Monday'} icon={PartlyCloudy} maxTemp={20} minTemp={16} />
+        <Day title={'Tomorrow'} icon={forecastData?.forecast?.forecastday[1].day.condition.icon} maxTemp={forecastData?.forecast?.forecastday[1].day.maxtemp_c.toFixed(0)} minTemp={forecastData?.forecast?.forecastday[1].day.mintemp_c.toFixed(0)} />
+        <Day title={getWeekDay(forecastData?.forecast?.forecastday[2].date_epoch)} icon={forecastData?.forecast?.forecastday[2].day.condition.icon} maxTemp={forecastData?.forecast?.forecastday[2].day.maxtemp_c.toFixed(0)} minTemp={forecastData?.forecast?.forecastday[2].day.mintemp_c.toFixed(0)} />
       </section>
     </div>
   )
