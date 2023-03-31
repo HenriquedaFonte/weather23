@@ -50,7 +50,7 @@ function App() {
 
   useEffect(() => {
       axios  
-        .get(`http://api.weatherapi.com/v1/forecast.json?key=${apiWeatherToken}&q=${cityName}&days=5&aqi=yes&alerts=no`)
+        .get(`https://api.weatherapi.com/v1/forecast.json?key=${apiWeatherToken}&q=${cityName}&days=5&aqi=yes&alerts=no`)
         .then(response => {
           setForecastData(response.data)
         })
@@ -76,7 +76,7 @@ function App() {
   const searchLocation = city => {
     setShowInput(false)
     axios
-      .get(`http://api.weatherapi.com/v1/forecast.json?key=${apiWeatherToken}&q=${city}&days=5&aqi=yes&alerts=no`)
+      .get(`https://api.weatherapi.com/v1/forecast.json?key=${apiWeatherToken}&q=${city}&days=5&aqi=yes&alerts=no`)
       .then(response => {
         setForecastData(response.data)
         setLocation({
