@@ -10,7 +10,7 @@ import Wind from './assets/wind.svg'
 import Leaf from './assets/leaf.svg'
 import SunTime from './assets/time.svg'
 import Chart from './assets/chart.svg'
-import FeelsLike from './assets/feelslike.svg'
+import FeelsLike from './assets/feelsLike.svg'
 
 function App() {
   const [forecastData, setForecastData] = useState({})
