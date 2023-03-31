@@ -23,10 +23,11 @@ body {
   display: grid;
   place-content: center;
 
-  min-height: 100vh;
+  min-height: 100dvh;
   min-width: 62rem;
 
   padding-top: 6rem;
+  padding-bottom: 8rem;
   gap: 2.4rem;
 }
 
