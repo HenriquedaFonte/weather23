@@ -125,7 +125,7 @@ function App() {
       setTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
       const element = document.querySelector(".sun-chart");
       element.style.setProperty("--pos-x", sunPosition(dataSuntime?.sys.sunrise, dataSuntime?.sys.sunset));
-    }, 5000);
+    }, 1000);
     return () => clearInterval(interval);
   }, [dataSuntime]);
 
