@@ -16,10 +16,9 @@
 html,
 body {
   font-size: 1.6rem;
-  height: 100%;
-  width: 100%;
+
   min-width: 100dvh;
-  min-height: 100dvh;
+  height: 100dvh;
 }
 
 .app {
@@ -28,11 +27,12 @@ body {
   display: grid;
   place-content: center;
 
-  width: 100%;
+  width: 100dvh;
   min-width: 36rem;
 
   padding-top: 6rem;
-  padding-bottom: 10rem;
+  padding-bottom: 15rem;
+
   gap: 2.4rem;
 }
 
