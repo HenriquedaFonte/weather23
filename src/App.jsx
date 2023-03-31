@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import './App.css'
-import Day from './components/Day/Day'
+import Day from './components/Day/day'
 
 import Pin from './assets/pin.svg'
 import Rain from './assets/rain.svg'
