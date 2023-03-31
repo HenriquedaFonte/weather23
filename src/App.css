@@ -13,8 +13,11 @@
   font-family: 'Lato', sans-serif;
 }
 
+html,
 body {
   font-size: 1.6rem;
+  height: 100%;
+  width: 100%;
   min-width: 100dvh;
   min-height: 100dvh;
 }
@@ -25,11 +28,11 @@ body {
   display: grid;
   place-content: center;
 
-  min-height: 100dvh;
+  width: 100%;
   min-width: 36rem;
 
   padding-top: 6rem;
-  padding-bottom: 8rem;
+  padding-bottom: 10rem;
   gap: 2.4rem;
 }
 
