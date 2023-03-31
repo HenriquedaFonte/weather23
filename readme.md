@@ -17,7 +17,7 @@ This project is a simple weather application that displays weather forecasts for
 Figma Project
 Layout created by [Rocketseat](https://rocketseat.com.br/) for the #boracodar project. You can find the project at the following link:
 
-https://www.figma.com/file/BNf2zfWC5plcCSeAbfpq3U/%23boraCodar---Desafio-10-(Community)?node-id=328-2&t=n2pjm0Ur2I3GB8si-0
+[Figma Project](https://www.figma.com/file/BNf2zfWC5plcCSeAbfpq3U/%23boraCodar---Desafio-10-(Community)?node-id=328-2&t=n2pjm0Ur2I3GB8si-0)
 
 Features
 Displays current weather conditions and weather forecasts for the next two days.
