@@ -34,6 +34,8 @@ body {
   padding-bottom: 15rem;
 
   gap: 2.4rem;
+
+  justify-content: space-evenly;
 }
 
 section {
