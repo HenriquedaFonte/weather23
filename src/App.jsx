@@ -18,9 +18,13 @@ function App() {
   const [cityName, setCityName] = useState(null)
   const [location, setLocation] = useState('')
   const [showInput, setShowInput] = useState(false)
-  const [time, setTime] = useState(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-  const { VITE_API_OPEN_WEATHR_MAP_TOKEN: idOpenWeatherMapToken, VITE_API_WEATER_TOKEN: apiWeatherToken } =
-    import.meta.env
+  const [time, setTime] = useState(
+    new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+  )
+  const {
+    VITE_API_OPEN_WEATHR_MAP_TOKEN: idOpenWeatherMapToken,
+    VITE_API_WEATER_TOKEN: apiWeatherToken
+  } = import.meta.env
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -37,33 +41,38 @@ function App() {
   }, [])
 
   useEffect(() => {
-    if (location !== ''){
-      getAddressFromLatLong(location.latitude, location.longitude);
-    }    
-  },[location])
-  
+    if (location !== '') {
+      getAddressFromLatLong(location.latitude, location.longitude)
+    }
+  }, [location])
+
   function getAddressFromLatLong(lat, long) {
-    fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${long}`)
+    fetch(
+      `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${long}`
+    )
       .then(response => response.json())
-      .then(data => setCityName(data.address.city));
+      .then(data => setCityName(data.address.city))
   }
 
   useEffect(() => {
-      axios  
-        .get(`https://api.weatherapi.com/v1/forecast.json?key=${apiWeatherToken}&q=${cityName}&days=5&aqi=yes&alerts=no`)
-        .then(response => {
-          setForecastData(response.data)
-        })
-        .catch(error => {
-          console.error('Error fetching weather data:', error)
-        })
-
+    axios
+      .get(
+        `https://api.weatherapi.com/v1/forecast.json?key=${apiWeatherToken}&q=${cityName}&days=5&aqi=yes&alerts=no`
+      )
+      .then(response => {
+        setForecastData(response.data)
+      })
+      .catch(error => {
+        console.error('Error fetching weather data:', error)
+      })
   }, [cityName, apiWeatherToken])
 
   useEffect(() => {
-    if (location !== ''){
+    if (location !== '') {
       axios
-        .get(`https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&units=metric&appid=${idOpenWeatherMapToken}`)
+        .get(
+          `https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&units=metric&appid=${idOpenWeatherMapToken}`
+        )
         .then(response => {
           setDataSuntime(response.data)
         })
@@ -76,7 +85,9 @@ function App() {
   const searchLocation = city => {
     setShowInput(false)
     axios
-      .get(`https://api.weatherapi.com/v1/forecast.json?key=${apiWeatherToken}&q=${city}&days=5&aqi=yes&alerts=no`)
+      .get(
+        `https://api.weatherapi.com/v1/forecast.json?key=${apiWeatherToken}&q=${city}&days=5&aqi=yes&alerts=no`
+      )
       .then(response => {
         setForecastData(response.data)
         setLocation({
@@ -93,13 +104,13 @@ function App() {
     4: 'Unhealthy',
     5: 'Very Unhealthy',
     6: 'Hazardous'
-  } 
+  }
 
-  const airCondition = forecastData?.current?.air_quality['us-epa-index'];
+  const airCondition = forecastData?.current?.air_quality['us-epa-index']
 
-  const weatherIcon = forecastData?.current?.condition?.icon;
+  const weatherIcon = forecastData?.current?.condition?.icon
 
-  function unixTimestamp(hour){
+  function unixTimestamp(hour) {
     const date = new Date(hour * 1000)
     const hours = date.getHours()
     const minutes = date.getMinutes()
@@ -109,34 +120,48 @@ function App() {
     return formattedTime
   }
 
-  function sunPosition (sunrise, sunset) {
-    const currentTimeUnix = Math.floor(Date.now() / 1000); 
-    const totalTime = sunset - sunrise;
-    const elapsedTime = currentTimeUnix - sunrise;
-    let percentageTimeElapsed = (elapsedTime / totalTime) * 100;
-    if (percentageTimeElapsed < 0 || percentageTimeElapsed > 100){
-      percentageTimeElapsed = 0;
+  function sunPosition(sunrise, sunset) {
+    const currentTimeUnix = Math.floor(Date.now() / 1000)
+    const totalTime = sunset - sunrise
+    const elapsedTime = currentTimeUnix - sunrise
+    let percentageTimeElapsed = (elapsedTime / totalTime) * 100
+    if (percentageTimeElapsed < 0 || percentageTimeElapsed > 100) {
+      percentageTimeElapsed = 0
     }
-    return percentageTimeElapsed.toFixed(0);    
+    return percentageTimeElapsed.toFixed(0)
   }
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-      const element = document.querySelector(".sun-chart");
-      element.style.setProperty("--pos-x", sunPosition(dataSuntime?.sys.sunrise, dataSuntime?.sys.sunset));
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [dataSuntime]);
+      setTime(
+        new Date().toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit'
+        })
+      )
+      const element = document.querySelector('.sun-chart')
+      element.style.setProperty(
+        '--pos-x',
+        sunPosition(dataSuntime?.sys.sunrise, dataSuntime?.sys.sunset)
+      )
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [dataSuntime])
 
   function getWeekDay(epochDate) {
-    const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday'];
-    const date = new Date(epochDate * 1000);
-    const weekDay = weekDays[date.getDay()];
-    return weekDay;
+    const weekDays = [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday'
+    ]
+    const date = new Date(epochDate * 1000)
+    const weekDay = weekDays[date.getDay()]
+    return weekDay
   }
-
-  console.log(forecastData);
 
   return (
     <main>
