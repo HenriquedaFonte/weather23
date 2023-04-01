@@ -150,7 +150,11 @@ function App() {
                 <input
                   className="searchLocation"
                   type="text"
-                  onKeyDown={event => event.key === 'Enter' ? searchLocation(event.target.value) : null}
+                  onKeyDown={event =>
+                    event.key === 'Enter'
+                      ? searchLocation(event.target.value)
+                      : null
+                  }
                 />
               ) : (
                 <strong onClick={() => setShowInput(true)}>
@@ -161,10 +165,20 @@ function App() {
           </div>
           <div className="temperature">
             <div className="number">
-              {forecastData.current ? forecastData.current.temp_c.toFixed() : null}
+              {forecastData.current
+                ? forecastData.current.temp_c.toFixed()
+                : null}
               <div className="tempMinMax">
-                {forecastData?.forecast?.forecastday[0].day.maxtemp_c.toFixed(0)}°{' '}
-                <span>{forecastData?.forecast?.forecastday[0].day.mintemp_c.toFixed(0)}° </span>
+                {forecastData?.forecast?.forecastday[0].day.maxtemp_c.toFixed(
+                  0
+                )}
+                °{' '}
+                <span>
+                  {forecastData?.forecast?.forecastday[0].day.mintemp_c.toFixed(
+                    0
+                  )}
+                  °{' '}
+                </span>
               </div>
             </div>
             <div className="scale">°C</div>
@@ -175,7 +189,10 @@ function App() {
               <div className="stats-info">
                 <p>Feels Like</p>
                 <h5>
-                  {forecastData.current ? forecastData.current.feelslike_c.toFixed() : null} <span>°C</span>
+                  {forecastData.current
+                    ? forecastData.current.feelslike_c.toFixed()
+                    : null}{' '}
+                  <span>°C</span>
                 </h5>
               </div>
             </div>
@@ -184,7 +201,10 @@ function App() {
               <div className="stats-info">
                 <p>Wind</p>
                 <h5>
-                  {forecastData.current ? forecastData.current.wind_kph.toFixed() : null} <span>km/h</span>
+                  {forecastData.current
+                    ? forecastData.current.wind_kph.toFixed()
+                    : null}{' '}
+                  <span>km/h</span>
                 </h5>
               </div>
             </div>
@@ -193,7 +213,10 @@ function App() {
               <div className="stats-info">
                 <p>Humidity</p>
                 <h5>
-                  {forecastData.current ? forecastData.current.humidity.toFixed() : null} <span>%</span>
+                  {forecastData.current
+                    ? forecastData.current.humidity.toFixed()
+                    : null}{' '}
+                  <span>%</span>
                 </h5>
               </div>
             </div>
@@ -202,7 +225,8 @@ function App() {
               <div className="stats-info">
                 <p>Rain</p>
                 <h5>
-                  {forecastData.current ? forecastData.current.precip_in.toFixed() : null} <span>%</span>
+                  {forecastData?.forecast?.forecastday[0].day.totalprecip_mm}
+                  <span>mm</span>
                 </h5>
               </div>
             </div>
@@ -222,27 +246,51 @@ function App() {
           </div>
           <div className="air-quality-stats">
             <div className="stats">
-              <p>{forecastData.current ? forecastData.current.air_quality.pm2_5.toFixed(1) : null}</p>
+              <p>
+                {forecastData.current
+                  ? forecastData.current.air_quality.pm2_5.toFixed(1)
+                  : null}
+              </p>
               <small>PM2.5</small>
             </div>
             <div className="stats">
-              <p>{forecastData.current ? forecastData.current.air_quality.pm10.toFixed(1) : null}</p>
+              <p>
+                {forecastData.current
+                  ? forecastData.current.air_quality.pm10.toFixed(1)
+                  : null}
+              </p>
               <small>PM10</small>
             </div>
             <div className="stats">
-              <p>{forecastData.current ? forecastData.current.air_quality.so2.toFixed(1) : null}</p>
+              <p>
+                {forecastData.current
+                  ? forecastData.current.air_quality.so2.toFixed(1)
+                  : null}
+              </p>
               <small>SO₂</small>
             </div>
             <div className="stats">
-              <p>{forecastData.current ? forecastData.current.air_quality.no2.toFixed(1) : null}</p>
+              <p>
+                {forecastData.current
+                  ? forecastData.current.air_quality.no2.toFixed(1)
+                  : null}
+              </p>
               <small>NO₂</small>
             </div>
             <div className="stats">
-              <p>{forecastData.current ? forecastData.current.air_quality.o3.toFixed(1) : null}</p>
+              <p>
+                {forecastData.current
+                  ? forecastData.current.air_quality.o3.toFixed(1)
+                  : null}
+              </p>
               <small>O₃</small>
             </div>
             <div className="stats">
-              <p>{forecastData.current ? forecastData.current.air_quality.co.toFixed(1) : null}</p>
+              <p>
+                {forecastData.current
+                  ? forecastData.current.air_quality.co.toFixed(1)
+                  : null}
+              </p>
               <small>CO</small>
             </div>
           </div>
@@ -264,13 +312,37 @@ function App() {
             </div>
           </div>
           <div className="time">
-            <time className="sunrise">{unixTimestamp(dataSuntime?.sys?.sunrise)}</time>
-            <time className="sunset">{unixTimestamp(dataSuntime?.sys?.sunset)}</time>
+            <time className="sunrise">
+              {unixTimestamp(dataSuntime?.sys?.sunrise)}
+            </time>
+            <time className="sunset">
+              {unixTimestamp(dataSuntime?.sys?.sunset)}
+            </time>
           </div>
         </section>
         <section className="week-weather">
-          <Day title={'Tomorrow'} icon={forecastData?.forecast?.forecastday[1].day.condition.icon} maxTemp={forecastData?.forecast?.forecastday[1].day.maxtemp_c.toFixed(0)} minTemp={forecastData?.forecast?.forecastday[1].day.mintemp_c.toFixed(0)} />
-          <Day title={getWeekDay(forecastData?.forecast?.forecastday[2].date_epoch)} icon={forecastData?.forecast?.forecastday[2].day.condition.icon} maxTemp={forecastData?.forecast?.forecastday[2].day.maxtemp_c.toFixed(0)} minTemp={forecastData?.forecast?.forecastday[2].day.mintemp_c.toFixed(0)} />
+          <Day
+            title={'Tomorrow'}
+            icon={forecastData?.forecast?.forecastday[1].day.condition.icon}
+            maxTemp={forecastData?.forecast?.forecastday[1].day.maxtemp_c.toFixed(
+              0
+            )}
+            minTemp={forecastData?.forecast?.forecastday[1].day.mintemp_c.toFixed(
+              0
+            )}
+          />
+          <Day
+            title={getWeekDay(
+              forecastData?.forecast?.forecastday[2].date_epoch
+            )}
+            icon={forecastData?.forecast?.forecastday[2].day.condition.icon}
+            maxTemp={forecastData?.forecast?.forecastday[2].day.maxtemp_c.toFixed(
+              0
+            )}
+            minTemp={forecastData?.forecast?.forecastday[2].day.mintemp_c.toFixed(
+              0
+            )}
+          />
         </section>
       </div>
     </main>
