@@ -137,139 +137,141 @@ function App() {
   }
 
   return (
-    <div className="app">
-      <section className="weather-now">
-        <img className="imgWeatherNow" src={weatherIcon} alt="" />
-        <div className="location">
-          <img src={Pin} alt="Location Pin icon" />
-          <div>
-            {showInput ? (
-              <input
-                className="searchLocation"
-                type="text"
-                onKeyDown={event => event.key === 'Enter' ? searchLocation(event.target.value) : null}
-              />
-            ) : (
-              <strong onClick={() => setShowInput(true)}>
-                {cityName ? cityName : 'Insert your location'}
-              </strong>
-            )}
-          </div>
-        </div>
-        <div className="temperature">
-          <div className="number">
-            {forecastData.current ? forecastData.current.temp_c.toFixed() : null}
-            <div className="tempMinMax">
-              {dataSuntime.main ? dataSuntime.main.temp_max.toFixed() : null}°{' '}
-              <span>{dataSuntime.main ? dataSuntime.main.temp_min.toFixed() : null}° </span>
+    <main>
+      <div className="app">
+        <section className="weather-now">
+          <img className="imgWeatherNow" src={weatherIcon} alt="" />
+          <div className="location">
+            <img src={Pin} alt="Location Pin icon" />
+            <div>
+              {showInput ? (
+                <input
+                  className="searchLocation"
+                  type="text"
+                  onKeyDown={event => event.key === 'Enter' ? searchLocation(event.target.value) : null}
+                />
+              ) : (
+                <strong onClick={() => setShowInput(true)}>
+                  {cityName ? cityName : 'Insert your location'}
+                </strong>
+              )}
             </div>
           </div>
-          <div className="scale">°C</div>
-        </div>
-        <div className="statistics">
-          <div className="stats">
-            <img src={FeelsLike} alt="Wind icon" />
-            <div className="stats-info">
-              <p>Feels Like</p>
-              <h5>
-                {forecastData.current ? forecastData.current.feelslike_c.toFixed() : null} <span>°C</span>
-              </h5>
+          <div className="temperature">
+            <div className="number">
+              {forecastData.current ? forecastData.current.temp_c.toFixed() : null}
+              <div className="tempMinMax">
+                {dataSuntime.main ? dataSuntime.main.temp_max.toFixed() : null}°{' '}
+                <span>{dataSuntime.main ? dataSuntime.main.temp_min.toFixed() : null}° </span>
+              </div>
+            </div>
+            <div className="scale">°C</div>
+          </div>
+          <div className="statistics">
+            <div className="stats">
+              <img src={FeelsLike} alt="Wind icon" />
+              <div className="stats-info">
+                <p>Feels Like</p>
+                <h5>
+                  {forecastData.current ? forecastData.current.feelslike_c.toFixed() : null} <span>°C</span>
+                </h5>
+              </div>
+            </div>
+            <div className="stats">
+              <img src={Wind} alt="Wind icon" />
+              <div className="stats-info">
+                <p>Wind</p>
+                <h5>
+                  {forecastData.current ? forecastData.current.wind_kph.toFixed() : null} <span>km/h</span>
+                </h5>
+              </div>
+            </div>
+            <div className="stats">
+              <img src={Humidity} alt="Humidity icon" />
+              <div className="stats-info">
+                <p>Humidity</p>
+                <h5>
+                  {forecastData.current ? forecastData.current.humidity.toFixed() : null} <span>%</span>
+                </h5>
+              </div>
+            </div>
+            <div className="stats">
+              <img src={Rain} alt="Humidity icon" />
+              <div className="stats-info">
+                <p>Rain</p>
+                <h5>
+                  {forecastData.current ? forecastData.current.precip_in.toFixed() : null} <span>%</span>
+                </h5>
+              </div>
             </div>
           </div>
-          <div className="stats">
-            <img src={Wind} alt="Wind icon" />
-            <div className="stats-info">
-              <p>Wind</p>
-              <h5>
-                {forecastData.current ? forecastData.current.wind_kph.toFixed() : null} <span>km/h</span>
-              </h5>
+        </section>
+        <section className="air-quality">
+          <div className="title">
+            <img src={Leaf} alt="Leaf icon" />
+            <h2>Air Quality</h2>
+          </div>
+          <div className="air-quality-info">
+            <p className="air-quality-info-text">
+              {forecastData?.current?.air_quality
+                ? airQualityDescriptions[airCondition]
+                : null}
+            </p>
+          </div>
+          <div className="air-quality-stats">
+            <div className="stats">
+              <p>{forecastData.current ? forecastData.current.air_quality.pm2_5.toFixed(1) : null}</p>
+              <small>PM2.5</small>
+            </div>
+            <div className="stats">
+              <p>{forecastData.current ? forecastData.current.air_quality.pm10.toFixed(1) : null}</p>
+              <small>PM10</small>
+            </div>
+            <div className="stats">
+              <p>{forecastData.current ? forecastData.current.air_quality.so2.toFixed(1) : null}</p>
+              <small>SO₂</small>
+            </div>
+            <div className="stats">
+              <p>{forecastData.current ? forecastData.current.air_quality.no2.toFixed(1) : null}</p>
+              <small>NO₂</small>
+            </div>
+            <div className="stats">
+              <p>{forecastData.current ? forecastData.current.air_quality.o3.toFixed(1) : null}</p>
+              <small>O₃</small>
+            </div>
+            <div className="stats">
+              <p>{forecastData.current ? forecastData.current.air_quality.co.toFixed(1) : null}</p>
+              <small>CO</small>
             </div>
           </div>
-          <div className="stats">
-            <img src={Humidity} alt="Humidity icon" />
-            <div className="stats-info">
-              <p>Humidity</p>
-              <h5>
-                {forecastData.current ? forecastData.current.humidity.toFixed() : null} <span>%</span>
-              </h5>
+        </section>
+        <section className="sun-time">
+          <div className="title">
+            <img src={SunTime} alt="SunTime icon" />
+            <h2>Sun Time</h2>
+          </div>
+          <div className="sun-chart-wrapper">
+            <div className="sun-chart">
+              <div className="chart">
+                <img
+                  src={Chart}
+                  alt="Image of a chart representing the position of the sun"
+                />
+              </div>
+              <time className="now">{time}</time>
             </div>
           </div>
-          <div className="stats">
-            <img src={Rain} alt="Humidity icon" />
-            <div className="stats-info">
-              <p>Rain</p>
-              <h5>
-                {forecastData.current ? forecastData.current.precip_in.toFixed() : null} <span>%</span>
-              </h5>
-            </div>
+          <div className="time">
+            <time className="sunrise">{unixTimestamp(dataSuntime?.sys?.sunrise)}</time>
+            <time className="sunset">{unixTimestamp(dataSuntime?.sys?.sunset)}</time>
           </div>
-        </div>
-      </section>
-      <section className="air-quality">
-        <div className="title">
-          <img src={Leaf} alt="Leaf icon" />
-          <h2>Air Quality</h2>
-        </div>
-        <div className="air-quality-info">
-          <p className="air-quality-info-text">
-            {forecastData?.current?.air_quality
-              ? airQualityDescriptions[airCondition]
-              : null}
-          </p>
-        </div>
-        <div className="air-quality-stats">
-          <div className="stats">
-            <p>{forecastData.current ? forecastData.current.air_quality.pm2_5.toFixed(1) : null}</p>
-            <small>PM2.5</small>
-          </div>
-          <div className="stats">
-            <p>{forecastData.current ? forecastData.current.air_quality.pm10.toFixed(1) : null}</p>
-            <small>PM10</small>
-          </div>
-          <div className="stats">
-            <p>{forecastData.current ? forecastData.current.air_quality.so2.toFixed(1) : null}</p>
-            <small>SO₂</small>
-          </div>
-          <div className="stats">
-            <p>{forecastData.current ? forecastData.current.air_quality.no2.toFixed(1) : null}</p>
-            <small>NO₂</small>
-          </div>
-          <div className="stats">
-            <p>{forecastData.current ? forecastData.current.air_quality.o3.toFixed(1) : null}</p>
-            <small>O₃</small>
-          </div>
-          <div className="stats">
-            <p>{forecastData.current ? forecastData.current.air_quality.co.toFixed(1) : null}</p>
-            <small>CO</small>
-          </div>
-        </div>
-      </section>
-      <section className="sun-time">
-        <div className="title">
-          <img src={SunTime} alt="SunTime icon" />
-          <h2>Sun Time</h2>
-        </div>
-        <div className="sun-chart-wrapper">
-          <div className="sun-chart">
-            <div className="chart">
-              <img
-                src={Chart}
-                alt="Image of a chart representing the position of the sun"
-              />
-            </div>
-            <time className="now">{time}</time>
-          </div>
-        </div>
-        <div className="time">
-          <time className="sunrise">{unixTimestamp(dataSuntime?.sys?.sunrise)}</time>
-          <time className="sunset">{unixTimestamp(dataSuntime?.sys?.sunset)}</time>
-        </div>
-      </section>
-      <section className="week-weather">
-        <Day title={'Tomorrow'} icon={forecastData?.forecast?.forecastday[1].day.condition.icon} maxTemp={forecastData?.forecast?.forecastday[1].day.maxtemp_c.toFixed(0)} minTemp={forecastData?.forecast?.forecastday[1].day.mintemp_c.toFixed(0)} />
-        <Day title={getWeekDay(forecastData?.forecast?.forecastday[2].date_epoch)} icon={forecastData?.forecast?.forecastday[2].day.condition.icon} maxTemp={forecastData?.forecast?.forecastday[2].day.maxtemp_c.toFixed(0)} minTemp={forecastData?.forecast?.forecastday[2].day.mintemp_c.toFixed(0)} />
-      </section>
-    </div>
+        </section>
+        <section className="week-weather">
+          <Day title={'Tomorrow'} icon={forecastData?.forecast?.forecastday[1].day.condition.icon} maxTemp={forecastData?.forecast?.forecastday[1].day.maxtemp_c.toFixed(0)} minTemp={forecastData?.forecast?.forecastday[1].day.mintemp_c.toFixed(0)} />
+          <Day title={getWeekDay(forecastData?.forecast?.forecastday[2].date_epoch)} icon={forecastData?.forecast?.forecastday[2].day.condition.icon} maxTemp={forecastData?.forecast?.forecastday[2].day.maxtemp_c.toFixed(0)} minTemp={forecastData?.forecast?.forecastday[2].day.mintemp_c.toFixed(0)} />
+        </section>
+      </div>
+    </main>
   )
 }
 
