@@ -136,6 +136,8 @@ function App() {
     return weekDay;
   }
 
+  console.log(forecastData);
+
   return (
     <main>
       <div className="app">
@@ -161,8 +163,8 @@ function App() {
             <div className="number">
               {forecastData.current ? forecastData.current.temp_c.toFixed() : null}
               <div className="tempMinMax">
-                {dataSuntime.main ? dataSuntime.main.temp_max.toFixed() : null}°{' '}
-                <span>{dataSuntime.main ? dataSuntime.main.temp_min.toFixed() : null}° </span>
+                {forecastData?.forecast?.forecastday[0].day.maxtemp_c.toFixed(0)}°{' '}
+                <span>{forecastData?.forecast?.forecastday[0].day.mintemp_c.toFixed(0)}° </span>
               </div>
             </div>
             <div className="scale">°C</div>
