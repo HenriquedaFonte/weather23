@@ -54,12 +54,11 @@ section {
   position: relative;
 
   display: grid;
-  /* grid-template-rows: max-content 1fr max-content; */
 }
 
 .imgWeatherNow {
-  width: 16rem;
-  height: 16rem;
+  width: 14rem;
+  height: 14rem;
   position: absolute;
   top: 0;
   left: 0;
@@ -93,6 +92,7 @@ section {
 
 .temperature {
   margin: 6rem;
+  margin-right: 2.5rem;
 
   font-weight: 700;
 
@@ -102,7 +102,7 @@ section {
 
 .temperature .number {
   text-align: center;
-  font-size: 8.8rem;
+  font-size: 9.8rem;
   color: #ffffff;
 
   display: flex;
@@ -392,7 +392,7 @@ time.now {
   }
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 899px) {
   .week-weather {
     animation: animate-weather-back 1s ease-in-out;
   }
