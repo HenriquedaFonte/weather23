@@ -186,8 +186,9 @@ section {
   color: #dad8f7;
 }
 
-.title h2 {
+h2 {
   font-size: 1.6rem;
+  color: #dad8f7;
 }
 
 .air-quality-info {
@@ -267,7 +268,8 @@ section {
   left: 50%;
   margin: -0.6rem;
 
-  transform: rotate(calc(1deg * (((100 - var(--pos-x)) / -100) * 180))) translate(10.6rem);
+  transform: rotate(calc(1deg * (((100 - var(--pos-x)) / -100) * 180)))
+    translate(10.6rem);
 }
 
 .chart {
@@ -286,9 +288,11 @@ section {
 
   border-radius: 50%;
 
-  background: linear-gradient(180deg,
-      rgba(251, 219, 96, 0.2) 0%,
-      rgba(251, 219, 96, 0) 101.89%);
+  background: linear-gradient(
+    180deg,
+    rgba(251, 219, 96, 0.2) 0%,
+    rgba(251, 219, 96, 0) 101.89%
+  );
 
   --mask: linear-gradient(0deg, white 50%, transparent 0%);
   mask: var(--mask);
@@ -348,8 +352,8 @@ time.now {
   .app {
     max-width: 128rem;
     grid-template-areas:
-      "wheatherNow airQuality sunTime"
-      "wheatherNow weekWeather weekWeather";
+      'wheatherNow airQuality sunTime'
+      'wheatherNow weekWeather weekWeather';
 
     grid-template-columns: 45% 1fr 1fr;
     padding-left: 5rem;
@@ -401,6 +405,18 @@ time.now {
   .sun-time,
   .air-quality {
     animation: animate-weather-back 1s ease-in-out;
+  }
+}
+
+@media all and (device-width: 768px) and (device-height: 1024px) and (orientation: portrait) {
+  .foo {
+    height: 1024px;
+  }
+}
+
+@media all and (device-width: 768px) and (device-height: 1024px) and (orientation: landscape) {
+  .foo {
+    height: 768px;
   }
 }
 
