@@ -78,17 +78,27 @@ section {
 .location strong {
   font-size: 1.4rem;
   color: #c2bff4;
+
+  cursor: pointer;
 }
 
 .searchLocation {
   border-radius: 4rem;
   padding-left: 1rem;
   width: 15rem;
+  height: 1.8rem;
 
   color: #681e8f;
   font-weight: 700;
 
+  border: none;
+
   background-color: #c2bff4;
+}
+
+.searchLocation:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 .temperature {
@@ -397,6 +407,7 @@ time.now {
   }
 }
 
+/*Iphone SE*/
 @media only screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) {
   main {
     width: 375px;
