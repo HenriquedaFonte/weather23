@@ -15,7 +15,7 @@ import FeelsLike from './assets/feelsLike.svg'
 function App() {
   const [forecastData, setForecastData] = useState({})
   const [dataSuntime, setDataSuntime] = useState({})
-  const [cityName, setCityName] = useState(null)
+  const [cityName, setCityName] = useState("montreal")
   const [location, setLocation] = useState('')
   const [showInput, setShowInput] = useState(false)
   const [time, setTime] = useState(
