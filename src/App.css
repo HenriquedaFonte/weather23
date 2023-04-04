@@ -479,70 +479,70 @@ time.now {
 /*Iphone SE*/
 @media only screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape) {
   main {
-    width: 623px;
+    width: 100%;
   }
 }
 
 /* 2340x1080 pixels at 476ppi */
 @media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape){
   main {
-    width: 768px;
+    width: 100%;
   }
 }
 
 /* 2532x1170 pixels at 460ppi */
 @media only screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) {
   main {
-    width: 800px;
+    width: 100%;
   }
 }
 
 /* 2778x1284 pixels at 458ppi */
 @media only screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape){
   main {
-    width: 882px;
+    width: 100%;
   }
 }
 
 /* 1792x828px at 326ppi */
 @media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape){
   main {
-    width: 852px;
+    width: 100%;
   }
 }
 
 /* 2436x1125px at 458ppi */
 @media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape){
   main {
-    width: 768px;
+    width: 100%;
   }
 }
 
 /* 2688x1242px at 458ppi */
 @media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape){
   main {
-    width: 852px;
+    width: 100%;
   }
 }
 
 /*iPhone 14*/
 @media only screen and (width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape){
   main {
-    width: 800px;
+    width: 100%;
   }
 }
 
 /*iPhone 14 Pro*/
 @media only screen and (width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape){
   main {
-    width: 808px;
+    width: 100%;
   }
 }
 
 /*iPhone 14 Pro Max*/
 @media only screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape){
   main {
-    width: 888px;
+    width: 100%;
   }
 }
 

@@ -15,7 +15,7 @@ import FeelsLike from './assets/feelsLike.svg'
 function App() {
   const [forecastData, setForecastData] = useState({})
   const [dataSuntime, setDataSuntime] = useState({})
-  const [cityName, setCityName] = useState("montreal")
+  const [cityName, setCityName] = useState(null)
   const [location, setLocation] = useState('')
   const [showInput, setShowInput] = useState(false)
   const [time, setTime] = useState(
@@ -47,17 +47,22 @@ function App() {
   }, [location])
 
   function getAddressFromLatLong(lat, long) {
-    fetch(
-      `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${long}`
-    )
-      .then(response => response.json())
-      .then(data => setCityName(data.address.city))
+    axios
+      .get(
+        `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${long}`
+      )
+      .then(response => {
+        setCityName(response.data.address.city)
+      })
+      .catch(error => {
+        console.error('Error fetching weather data:', error)
+      })
   }
 
   useEffect(() => {
     axios
       .get(
-        `https://api.weatherapi.com/v1/forecast.json?key=${apiWeatherToken}&q=${cityName}&days=5&aqi=yes&alerts=no`
+        `https://api.weatherapi.com/v1/forecast.json?key=${apiWeatherToken}&q=${cityName}&days=3&aqi=yes&alerts=no`
       )
       .then(response => {
         setForecastData(response.data)
