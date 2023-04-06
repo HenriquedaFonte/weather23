@@ -146,7 +146,7 @@ function App() {
     const interval = setInterval(() => {
       axios
         .get(
-          `http://api.timezonedb.com/v2.1/get-time-zone?key=${timezoneToken}&format=json&by=position&lat=${location.latitude}&lng=${location.longitude}`
+          `https://api.timezonedb.com/v2.1/get-time-zone?key=${timezoneToken}&format=json&by=position&lat=${location.latitude}&lng=${location.longitude}`
         )
         .then(response => {
           setTime(response.data.formatted.split(' ')[1].substr(0, 5));
