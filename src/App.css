@@ -58,8 +58,8 @@ section {
 }
 
 .imgWeatherNow {
-  width: 14rem;
-  height: 14rem;
+  width: 15rem;
+  height: 15rem;
   position: absolute;
   top: 0;
   left: 0;
@@ -109,6 +109,17 @@ section {
 
   display: flex;
   justify-content: center;
+}
+
+.temperature .condition {
+  display: flex;
+  align-items: center;
+}
+
+.temperature .condition p {
+  font-size: 2rem;
+  color: #ffffff;
+  writing-mode: vertical-rl;
 }
 
 .temperature .number {
@@ -350,7 +361,7 @@ time.now {
   gap: 1.2rem;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 940px) {
   main {
     height: 100vh;
     display: flex;
@@ -382,11 +393,21 @@ time.now {
   }
 
   .imgWeatherNow {
-    width: 16rem;
-    height: 16rem;
+    width: 17rem;
+    height: 17rem;
     position: absolute;
     top: -6rem;
     left: -6rem;
+  }
+
+  .temperature .condition p {
+    font-size: 3rem;
+    color: #ffffff;
+    writing-mode: vertical-rl;
+  
+    position: absolute;
+    left: 1.5rem;
+    top: 10rem;
   }
 
   .sun-time,
@@ -396,7 +417,7 @@ time.now {
   }
 }
 
-@media (max-width: 899px) {
+@media (max-width: 939px) {
   .week-weather {
     animation: animate-weather-back 1s ease-in-out;
   }

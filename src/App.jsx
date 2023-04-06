@@ -23,7 +23,8 @@ function App() {
   )
   const {
     VITE_API_OPEN_WEATHR_MAP_TOKEN: idOpenWeatherMapToken,
-    VITE_API_WEATER_TOKEN: apiWeatherToken
+    VITE_API_WEATER_TOKEN: apiWeatherToken,
+    VITE_API_TIMEZONE_TOKEN: timezoneToken
   } = import.meta.env
 
   useEffect(() => {
@@ -100,6 +101,9 @@ function App() {
           longitude: response.data.location.lon
         })
       })
+      .catch(error => {
+        console.error('Error fetching weather data:', error)
+      })
   }
 
   const airQualityDescriptions = {
@@ -112,8 +116,8 @@ function App() {
   }
 
   const airCondition = forecastData?.current?.air_quality['us-epa-index']
-
-  const weatherIcon = forecastData?.current?.condition?.icon
+  const preWeatherIcon = forecastData?.current?.condition?.icon
+  const weatherIcon = preWeatherIcon?.replace('64x64', '128x128')
 
   function unixTimestamp(hour) {
     const date = new Date(hour * 1000)
@@ -137,21 +141,27 @@ function App() {
   }
 
   useEffect(() => {
+    const sunrise = dataSuntime?.sys?.sunrise
+    const sunset = dataSuntime?.sys?.sunset
     const interval = setInterval(() => {
-      setTime(
-        new Date().toLocaleTimeString([], {
-          hour: '2-digit',
-          minute: '2-digit'
+      axios
+        .get(
+          `http://api.timezonedb.com/v2.1/get-time-zone?key=${timezoneToken}&format=json&by=position&lat=${location.latitude}&lng=${location.longitude}`
+        )
+        .then(response => {
+          setTime(response.data.formatted.split(' ')[1].substr(0, 5));
         })
-      )
+        .catch(error => {
+          console.error('Error fetching weather data:', error)
+        })
       const element = document.querySelector('.sun-chart')
       element.style.setProperty(
         '--pos-x',
-        sunPosition(dataSuntime?.sys.sunrise, dataSuntime?.sys.sunset)
+        sunPosition(sunrise, sunset)
       )
-    }, 1000)
+    }, 2000)
     return () => clearInterval(interval)
-  }, [dataSuntime])
+  }, [dataSuntime, location])
 
   function getWeekDay(epochDate) {
     const weekDays = [
@@ -180,6 +190,7 @@ function App() {
                 <input
                   className="searchLocation"
                   type="text"
+                  autoFocus
                   onKeyDown={event =>
                     event.key === 'Enter'
                       ? searchLocation(event.target.value)
@@ -194,6 +205,9 @@ function App() {
             </div>
           </div>
           <div className="temperature">
+            <div className="condition">
+              <p>{forecastData?.current?.condition.text}</p>
+            </div>
             <div className="number">
               {forecastData.current
                 ? forecastData.current.temp_c.toFixed()
